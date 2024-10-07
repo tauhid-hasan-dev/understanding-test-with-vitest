@@ -1,4 +1,6 @@
-Practicing test with vitest
+Testing 
+
+Most of the cases we need to do Unit tests, then Integration test, UI test and sometimes manual tests.
 
 # Unit Testing
 
@@ -42,6 +44,38 @@ describe('integration test', () => {
     });
 });
 ```
+
+# Test-Driven Development (TDD)
+
+Test-Driven Development (TDD) is a software development approach in which tests are written before writing the actual code. The process involves writing a test for a specific functionality, writing the minimal amount of code to pass the test, and then refactoring the code while ensuring that all tests still pass. TDD helps in building robust and error-free code.
+
+- **Red-Green-Refactor**: The TDD cycle consists of writing a failing test (Red), writing code to make the test pass (Green), and then refactoring the code (Refactor).
+- **Specification**: Tests serve as a specification for the code functionality.
+- **Feedback**: Provides immediate feedback on code correctness.
+
+Example of TDD using Vitest:
+
+```javascript
+import { describe, it, expect } from 'vitest';
+
+// Step 1: Write a failing test
+describe('subtract function', () => {
+    it('should return the difference of two numbers', () => {
+        const subtract = (a, b) => a - b;
+        expect(subtract(5, 3)).toBe(2);
+    });
+});
+
+// Step 2: Write code to pass the test
+const subtract = (a, b) => a - b;
+
+// Step 3: Refactor (if necessary)
+```
+
+
+
+
+
 
 
 
