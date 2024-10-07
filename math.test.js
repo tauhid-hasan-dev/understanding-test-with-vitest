@@ -35,3 +35,22 @@ it("should return the correct sum if an array of numeric string is provided", ()
     // Assert
     expect(result).toBe(expectedResult);
 })
+
+it("should throw an error if no argument is passed", () => {
+    const resultfn = () => add();
+
+    // Assert
+    expect(resultfn).toThrow();
+})
+
+
+it("should throw an error if multiple argument is passed", () => {
+    const resultfn = () => add(1,2,3);
+
+    // Assert
+    expect(resultfn).toThrow();
+
+    // expect(resultfn).toThrow(/is not iterable/i);
+
+})
+
