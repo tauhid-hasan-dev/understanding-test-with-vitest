@@ -72,6 +72,38 @@ const subtract = (a, b) => a - b;
 // Step 3: Refactor (if necessary)
 ```
 
+# AAA Pattern in Testing
+
+The AAA (Arrange-Act-Assert) pattern is a common pattern used in unit testing to structure tests in a clear and understandable way. It divides the test into three distinct sections:
+
+- **Arrange**: Set up the initial conditions and inputs for the test.
+- **Act**: Execute the code being tested.
+- **Assert**: Verify that the outcome is as expected.
+
+Example of AAA pattern using Vitest:
+
+```javascript
+import { describe, it, expect } from 'vitest';
+
+describe('AAA pattern example', () => {
+    it('should demonstrate the AAA pattern', () => {
+        // Arrange 
+        const a = 1;
+        const b = 2;
+        const sum = (x, y) => x + y;
+
+        // Act
+        const result = sum(a, b);
+
+        // Assert
+        expect(result).toBe(3);
+    });
+});
+```
+
+
+
+
 
 
 
