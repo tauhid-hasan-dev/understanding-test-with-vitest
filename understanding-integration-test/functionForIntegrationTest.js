@@ -1,4 +1,4 @@
-import { convertToNumber } from "./convertToNumber";
+import { convertToNumber } from "../understanding-unit-testing/convertToNumber";
 
 const validateNumber = (number) => {
     if (isNaN(number)) {
