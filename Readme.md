@@ -110,6 +110,8 @@ Test hooks are special functions provided by testing frameworks that allow you t
 - **afterAll**: Runs once after all tests in a suite.
 - **afterEach**: Runs after each test in a suite.
 
+Important: hooks can be written inside the describe function and test can be run concurrently (just use it.concurrent), normally jest and vitest runs tests concurrently. Remember for enterprise level project it is very important to run test concurrently.
+
 Example using Vitest:
 
 ```javascript
