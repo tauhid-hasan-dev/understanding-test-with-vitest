@@ -16,7 +16,7 @@ export function encryptMessagePromise(message, key) {
             } else {
                 reject(new Error('Failed to encrypt message'));
             }
-        }, 2000);
+        }, 1000);
     });
 }
 
