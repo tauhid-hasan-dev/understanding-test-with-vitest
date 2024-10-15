@@ -1,158 +1,74 @@
-Testing 
+## Test Doubles
 
-Most of the cases we need to do Unit tests, then Integration test, UI test and sometimes manual tests.
+In software testing, **test doubles** are objects or procedures that mimic the behavior of real components. They are used to isolate the unit of work being tested and to control the environment in which tests are executed. There are several types of test doubles:
 
-# Unit Testing
+1. **Dummy**: Objects that are passed around but never actually used. They are usually just used to fill parameter lists.
+   
+   ```javascript
+   function greet(user) {
+       return `Hello, ${user.name}!`;
+   }
 
-Unit testing is a software testing method where individual units or components of a software are tested in isolation from the rest of the application. The goal is to validate that each unit of the software performs as expected. Unit tests are typically automated and written by developers to ensure that code changes do not introduce new bugs.
+   const dummyUser = { name: 'John Doe' };
+   console.log(greet(dummyUser)); // Output: Hello, John Doe!
+   ```
 
-- **Isolation**: Tests focus on a single "unit" of code, such as a function or method.
-- **Automation**: Tests are often automated to run frequently and provide quick feedback.
-- **Regression Prevention**: Helps catch bugs early and prevent regressions in the codebase.
+2. **Fake**: Objects that have working implementations but are simplified versions of the real thing. They are often used for testing purposes.
 
-Example of a simple unit test using Vitest:
+   ```javascript
+   class FakeDatabase {
+       constructor() {
+           this.data = {};
+       }
 
-```javascript
-import { describe, it, expect } from 'vitest';
+       save(key, value) {
+           this.data[key] = value;
+       }
 
-describe('sum function', () => {
-    it('should return the sum of two numbers', () => {
-        const sum = (a, b) => a + b;
-        expect(sum(1, 2)).toBe(3);
-    });
-});
-```
+       find(key) {
+           return this.data[key];
+       }
+   }
 
-# Integration Testing
+   const db = new FakeDatabase();
+   db.save('user1', { name: 'Alice' });
+   console.log(db.find('user1')); // Output: { name: 'Alice' }
+   ```
 
-Integration testing is a software testing method where individual units are combined and tested as a group. The goal is to identify issues in the interaction between integrated units. It ensures that different modules or services work together as expected.
+3. **Stub**: Objects that provide predefined responses to method calls. They are used to control the behavior of the tested code.
 
-- **Combination**: Tests the interaction between integrated units.
-- **Detection**: Identifies issues in the interfaces and interactions.
-- **Validation**: Ensures combined units function correctly together.
+   ```javascript
+   const userService = {
+       getUser: (id) => ({ id, name: 'Stub User' })
+   };
 
-Example of a simple integration test using Vitest:
+   const user = userService.getUser(1);
+   console.log(user); // Output: { id: 1, name: 'Stub User' }
+   ```
 
-```javascript
-import { describe, it, expect } from 'vitest';
+4. **Spy**: Objects that record information about the interactions they have with other objects. They are used to verify that certain interactions occurred.
 
-describe('integration test', () => {
-    it('should return the correct result when functions are combined', () => {
-        const multiply = (a, b) => a * b;
-        const addAndMultiply = (a, b, c) => multiply(a + b, c);
-        expect(addAndMultiply(1, 2, 3)).toBe(9);
-    });
-});
-```
+   ```javascript
+   const userService = {
+       getUser: jest.fn().mockReturnValue({ id: 1, name: 'Spy User' })
+   };
 
-# Test-Driven Development (TDD)
+   userService.getUser(1);
+   expect(userService.getUser).toHaveBeenCalledWith(1);
+   ```
 
-Test-Driven Development (TDD) is a software development approach in which tests are written before writing the actual code. The process involves writing a test for a specific functionality, writing the minimal amount of code to pass the test, and then refactoring the code while ensuring that all tests still pass. TDD helps in building robust and error-free code.
+5. **Mock**: Objects that are pre-programmed with expectations which form a specification of the calls they are expected to receive.
 
-- **Red-Green-Refactor**: The TDD cycle consists of writing a failing test (Red), writing code to make the test pass (Green), and then refactoring the code (Refactor).
-- **Specification**: Tests serve as a specification for the code functionality.
-- **Feedback**: Provides immediate feedback on code correctness.
+   ```javascript
+   const userService = {
+       getUser: jest.fn()
+   };
 
-Example of TDD using Vitest:
+   userService.getUser.mockReturnValue({ id: 1, name: 'Mock User' });
 
-```javascript
-import { describe, it, expect } from 'vitest';
+   const user = userService.getUser(1);
+   expect(userService.getUser).toHaveBeenCalledWith(1);
+   expect(user).toEqual({ id: 1, name: 'Mock User' });
+   ```
 
-// Step 1: Write a failing test
-describe('subtract function', () => {
-    it('should return the difference of two numbers', () => {
-        const subtract = (a, b) => a - b;
-        expect(subtract(5, 3)).toBe(2);
-    });
-});
-
-// Step 2: Write code to pass the test
-const subtract = (a, b) => a - b;
-
-// Step 3: Refactor (if necessary)
-```
-
-# AAA Pattern in Testing
-
-The AAA (Arrange-Act-Assert) pattern is a common pattern used in unit testing to structure tests in a clear and understandable way. It divides the test into three distinct sections:
-
-- **Arrange**: Set up the initial conditions and inputs for the test.
-- **Act**: Execute the code being tested.
-- **Assert**: Verify that the outcome is as expected.
-
-Example of AAA pattern using Vitest:
-
-```javascript
-import { describe, it, expect } from 'vitest';
-
-describe('AAA pattern example', () => {
-    it('should demonstrate the AAA pattern', () => {
-        // Arrange 
-        const a = 1;
-        const b = 2;
-        const sum = (x, y) => x + y;
-
-        // Act
-        const result = sum(a, b);
-
-        // Assert
-        expect(result).toBe(3);
-    });
-});
-```
-
-# Test Hooks
-
-Test hooks are special functions provided by testing frameworks that allow you to run code at specific points in the test lifecycle. They help in setting up and tearing down the test environment, ensuring that each test runs in a clean state. Common hooks include:
-
-- **beforeAll**: Runs once before all tests in a suite.
-- **beforeEach**: Runs before each test in a suite.
-- **afterAll**: Runs once after all tests in a suite.
-- **afterEach**: Runs after each test in a suite.
-
-Important: hooks can be written inside the describe function and test can be run concurrently (just use it.concurrent), normally jest and vitest runs tests concurrently. Remember for enterprise level project it is very important to run test concurrently.
-
-Example using Vitest:
-
-```javascript
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-
-describe('Test hooks example', () => {
-    let value;
-
-    beforeEach(() => {
-        // Setup code
-        value = 0;
-    });
-
-    afterEach(() => {
-        // Teardown code
-        value = null;
-    });
-
-    it('should increment value', () => {
-        value += 1;
-        expect(value).toBe(1);
-    });
-
-    it('should decrement value', () => {
-        value -= 1;
-        expect(value).toBe(-1);
-    });
-});
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Using test doubles helps in creating more reliable and maintainable tests by isolating the unit of work and controlling the test environment.
