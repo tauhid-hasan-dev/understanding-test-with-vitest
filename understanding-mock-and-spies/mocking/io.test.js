@@ -3,6 +3,7 @@ import { promises as fs } from 'fs';
 import {it, expect, vi} from 'vitest';
 import { saveTokenToFile } from './io';
 
+// it is an example of automatic mock creation
 vi.mock('fs'); // mock the fs module (every methods) to prevent writing to the file system when testing 
 
 it('should store the token to the file', () => {    
