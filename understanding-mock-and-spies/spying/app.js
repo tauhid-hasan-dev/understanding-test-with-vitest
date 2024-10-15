@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { saveTokenToFile } from './utils/io.js';
+import { saveTokenToFile } from '../mocking/io.js';
 
 function log(message) {
   console.log(message);
@@ -15,7 +15,7 @@ export async function storeToken(data) {
   if (!data) {
     throw new Error('No token received!');
   }
-  await saveTokenToFile(data, 'git .txt');
+  await saveTokenToFile(data, 'data.txt');
 }
 
 const data = generateToken(log);
