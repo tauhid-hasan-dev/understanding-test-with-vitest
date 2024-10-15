@@ -22,7 +22,7 @@ export function encryptMessagePromise(message, key) {
 
 
 // const message = {
-//     name: 'Mizan',
+//     name: 'Tauhid',
 //     password: '11223344',
 //   };
   
