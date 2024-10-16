@@ -1,4 +1,5 @@
 // this is the file that contains the function that will be tested
+//  added a comment to make sure the file is not empty
 export function add(numbers){
     let sum = 0;
     
