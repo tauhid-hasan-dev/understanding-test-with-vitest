@@ -100,6 +100,15 @@ describe('AAA pattern example', () => {
     });
 });
 ```
+# Mock
+
+Mocks prevent the real side effects, enabling a more controlled and focused testing environment without impacting the actual data, filesystem, or network resources.
+
+***Deleting Data***: When testing code that deletes data (e.g., removing user accounts or records), mocks simulate the deletion without actually modifying the database. This prevents accidental data loss and allows you to test delete functionality in a safe, repeatable environment.
+
+***Connecting to a Database***: Database connections involve setup, teardown, and potential network issues. By mocking the database layer, you can simulate queries and responses without needing an actual database connection, avoiding delays and making tests faster and more consistent.
+
+***Writing Files***: Testing file-writing operations can lead to clutter, permission issues, or unintended file modifications. Mocks allow you to simulate file writes, ensuring that your code’s logic is correct without creating or modifying actual files on disk. This keeps the test environment clean and reduces file I/O time.
 
 
 
