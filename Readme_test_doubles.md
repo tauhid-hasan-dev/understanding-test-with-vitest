@@ -59,15 +59,6 @@ In software testing, **test doubles** are objects or procedures that mimic the b
 
 5. **Mock**: Objects that are pre-programmed with expectations which form a specification of the calls they are expected to receive.
 
-Yes, mocks are particularly useful for these cases, where real operations may have unwanted side effects or require complex setup. Here's how mocks can help:
-
-Deleting Data: When testing code that deletes data (e.g., removing user accounts or records), mocks simulate the deletion without actually modifying the database. This prevents accidental data loss and allows you to test delete functionality in a safe, repeatable environment.
-
-Connecting to a Database: Database connections involve setup, teardown, and potential network issues. By mocking the database layer, you can simulate queries and responses without needing an actual database connection, avoiding delays and making tests faster and more consistent.
-
-Writing Files: Testing file-writing operations can lead to clutter, permission issues, or unintended file modifications. Mocks allow you to simulate file writes, ensuring that your code’s logic is correct without creating or modifying actual files on disk. This keeps the test environment clean and reduces file I/O time.
-
-In each case, mocks prevent the real side effects, enabling a more controlled and focused testing environment without impacting the actual data, filesystem, or network resources.
 
    ```javascript
    const userService = {
